@@ -1,88 +1,4 @@
-GPT_PROMPTS = {
-    'short': """
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Elvish Piper
-Mana Cost: {3}{G}
-Types: Creature — Elf Shaman
-Card Text: {G}, {T}: You may put a creature card from your hand onto the battlefield.
-Flavor Text: "From Gaea grew the world, and the world was silent. From Gaea grew the world's elves, and the world was silent no more." — Elvish teaching
-P/T: 1/1
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Psychatog
-Mana Cost: {1}{U}{B}
-Types: Creature — Atog
-Card Text: Discard a card: Psychatog gets +1/+1 until end of turn | Exile two cards from your graveyard: Psychatog gets +1/+1 until end of turn.
-Flavor Text: n/a
-P/T: 1/1
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Black Lotus
-Mana Cost: {0}
-Types: Artifact
-Card Text: {T}, Sacrifice Black Lotus: Add three mana of any one color.
-Flavor Text: n/a
-P/T: n/a
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Leviathan
-Mana Cost: {5}{U}{U}{U}{U}
-Types: Creature — Leviathan
-Card Text: Trample | Leviathan enters the battlefield tapped and doesn't untap during your untap step. | At the beginning of your upkeep, you may sacrifice two Islands. If you do, untap Leviathan. | Leviathan can't attack unless you sacrifice two Islands. (This cost is paid as attackers are declared.)
-Flavor Text: n/a
-P/T: 10/10
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Grim Draugr
-Mana Cost: {2}{B}
-Types: Snow Creature — Zombie Berserker
-Card Text: {1}{S}: Grim Draugr gets +1/+0 and gains menace until end of turn. (It can't be blocked except by two or more creatures. {S} can be paid with one mana from a snow source.)
-Flavor Text: "She was a ragged shadow of her living form, but she had lost none of her deadly prowess."
-P/T: 3/2
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Grim Draugr
-Mana Cost: {2}{B}
-Types: Snow Creature — Zombie Berserker
-Card Text: {1}{S}: Grim Draugr gets +1/+0 and gains menace until end of turn. (It can't be blocked except by two or more creatures. {S} can be paid with one mana from a snow source.)
-Flavor Text: "She was a ragged shadow of her living form, but she had lost none of her deadly prowess."
-P/T: 3/2
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Firebolt
-Mana Cost: {R}
-Types: Sorcery
-Card Text: Firebolt deals 2 damage to any target. | Flashback {4}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)
-Flavor Text: "There’s more where that came from!"
-P/T: n/a
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
-Card Name: Crusading Knight
-Mana Cost: {2}{W}{W}
-Types: Creature — Human Knight
-Card Text: Protection from black. | Crusading Knight gets +1/+1 for each Swamp your opponents control.
-Flavor Text: "My only dream is to destroy the nightmares of others."
-P/T: 2/2
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-""",
-'medium': """
+GPT_PROMPT = """
 Generate a new magic card for the game Magic The Gathering:
 
 Card Name: Elvish Piper
@@ -234,5 +150,4 @@ P/T: 2/2
 
 =============
 Generate a new magic card for the game Magic The Gathering:
-""",
-}
+"""

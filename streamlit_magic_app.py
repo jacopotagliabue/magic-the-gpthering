@@ -3,7 +3,7 @@ import json
 import time
 import streamlit as st
 from datetime import datetime
-from prompts import GPT_PROMPTS
+from prompts import GPT_PROMPT
 
 
 ### Utility functions / API wrappers
@@ -42,11 +42,11 @@ def get_gpt3_completion(
 
 # main function to generate new cards
 def generate_new_card(
-    gpt_prompt_style: str='short'
+
 ):
     status_code, text = get_gpt3_completion(
         api_key=API_KEY,
-        prompt=GPT_PROMPTS[gpt_prompt_style],
+        prompt=GPT_PROMPT,
         temperature=0.75,
         max_tokens=250
     )
@@ -73,9 +73,7 @@ API_KEY = st.text_input("Enter your OpenAI API KEY", type="password")
 ### APP SECTION: Card generation
 st.subheader("Card generation")    
 if st.button('Generate card'):
-    card_text = generate_new_card(
-        gpt_prompt_style='medium'
-    )
+    card_text = generate_new_card()
     # display the text
     st.write("Text debugging")
     st.text(card_text)
