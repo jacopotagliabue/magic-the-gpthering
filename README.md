@@ -9,13 +9,19 @@ The app is built as a Streamlit app, wrapping with Python the generative capabil
 
 If you care about the cards, just go to the [online app](https://jacopotagliabue-magic-the-gpthering-streamlit-magic-app-b5c8m0.streamlit.app/). If you want to improve it (God knows how much that's needed!), feel free to play around with the code: it's all pretty hacky, but the code should be simple and self-contained enough that making it better should be straightforward. This was a fun week-end project and should be treated with the appropriate sense of humour.
 
+Generated cards may be similar to this one:
+
+![example card](example.png)
+
+Note that in this case the model actually picked *an existing card name* (you can double check online), and then "hallucinate" partially the rest. In general, as usual with these models, it is hard to make sure content is truly new.
+
 ## Generate cards
 
 IMPORTANT: since we leverage OpenAI APIs, you need to have your own API key to generate cards. You can quickly sign up [here](https://openai.com/api/) to get one, if you don't have one already. The streamlit app doesn't store your credentials anywhere.
 
 ### Cloud app
 
-Browse to our Streamlit app [here](https://jacopotagliabue-magic-the-gpthering-streamlit-magic-app-b5c8m0.streamlit.app/) - you should be able to generate cards directly on your browser (if the app is "sleeping" on the Streamlist servers, follow the browser instructions to spin it up again).
+Browse to our Streamlit app [here](https://jacopotagliabue-magic-the-gpthering-streamlit-magic-app-b5c8m0.streamlit.app/) - you should be able to generate cards directly on your browser (if the app is "sleeping" on the Streamlit servers, follow the browser instructions to spin it up again).
 
 ### Running the code locally
 
@@ -46,4 +52,4 @@ Feel free to star this repo, fork the code and build your own generator!
 
 All the code is released without warranty, "as is" under a MIT License. We are not affiliated with, endorsed, sponsored, enchanted, truth or dare, by Wizards of the Coast LLC, OpenAI etc. This was a fun week-end project and should be treated with the appropriate sense of humour.
 
-We are indeed very grateful to Wizards of the Coast for the endless amount of fun we had as kid: "When we was young, oh man, did we have fun / Always, always".
+We are indeed very grateful to Wizards of the Coast for the endless amount of fun we had as kids: "When we was young, oh man, did we have fun / Always, always".

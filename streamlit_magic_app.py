@@ -283,5 +283,5 @@ if st.button('Generate card'):
     else:
         st.image(card_image, caption='My new card')
     # debug
-    st.write('Raw text (debug')
+    st.write('Raw text (debugging purposes)')
     st.text(card_text)
