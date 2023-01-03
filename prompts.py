@@ -1,6 +1,8 @@
 GPT_PROMPT = """
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Green
+Card Type: Creature
 Card Name: Elvish Piper
 Mana Cost: {3}{G}
 Types: Creature — Elf Shaman
@@ -11,6 +13,8 @@ P/T: 1/1
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Blue
+Card Type: Creature
 Card Name: Psychatog
 Mana Cost: {1}{U}{B}
 Types: Creature — Atog
@@ -21,6 +25,8 @@ P/T: 1/1
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: n/a
+Card Type: Artifact
 Card Name: Black Lotus
 Mana Cost: {0}
 Types: Artifact
@@ -31,6 +37,8 @@ P/T: n/a
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Blue
+Card Type: Creature
 Card Name: Leviathan
 Mana Cost: {5}{U}{U}{U}{U}
 Types: Creature — Leviathan
@@ -41,6 +49,8 @@ P/T: 10/10
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Black
+Card Type: Creature
 Card Name: Grim Draugr
 Mana Cost: {2}{B}
 Types: Snow Creature — Zombie Berserker
@@ -51,16 +61,8 @@ P/T: 3/2
 =============
 Generate a new magic card for the game Magic The Gathering:
 
-Card Name: Grim Draugr
-Mana Cost: {2}{B}
-Types: Snow Creature — Zombie Berserker
-Card Text: {1}{S}: Grim Draugr gets +1/+0 and gains menace until end of turn. (It can't be blocked except by two or more creatures. {S} can be paid with one mana from a snow source.)
-Flavor Text: "She was a ragged shadow of her living form, but she had lost none of her deadly prowess."
-P/T: 3/2
-
-=============
-Generate a new magic card for the game Magic The Gathering:
-
+Color: Red
+Card Type: Sorcery
 Card Name: Firebolt
 Mana Cost: {R}
 Types: Sorcery
@@ -71,6 +73,8 @@ P/T: n/a
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: White
+Card Type: Creature
 Card Name: Crusading Knight
 Mana Cost: {2}{W}{W}
 Types: Creature — Human Knight
@@ -81,6 +85,8 @@ P/T: 2/2
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Green
+Card Type: Creature
 Card Name: Stone-Tongue Basilisk
 Mana Cost: {4}{G}{G}{G}
 Types: Creature — Basilisk
@@ -91,6 +97,8 @@ P/T: 4/5
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Red
+Card Type: Instant
 Card Name: Reverberate
 Mana Cost: {R}{R}
 Types: Instant
@@ -101,6 +109,8 @@ P/T: n/a
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: n/a
+Card Type: Land
 Card Name: Cabal Coffers
 Mana Cost: n/a
 Types: Land
@@ -111,6 +121,8 @@ P/T: n/a
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Black
+Card Type: Creature
 Card Name: Crypt Ghast
 Mana Cost: {3}{B}
 Types: Creature — Spirit
@@ -121,6 +133,8 @@ P/T: 2/2
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Blue
+Card Type: Enchantment
 Card Name: Spreading Seas
 Mana Cost: {1}{U}
 Types: Enchantment — Aura
@@ -131,6 +145,8 @@ P/T: n/a
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: Blue
+Card Type: Sorcery
 Card Name: Preordain
 Mana Cost: {U}
 Types: Sorcery
@@ -141,6 +157,8 @@ P/T: n/a
 =============
 Generate a new magic card for the game Magic The Gathering:
 
+Color: White
+Card Type: Creature
 Card Name: Mentor of the Meek
 Mana Cost: {2}{W}
 Types: Creature — Human Soldier
@@ -150,4 +168,7 @@ P/T: 2/2
 
 =============
 Generate a new magic card for the game Magic The Gathering:
+
+Color: my_color
+Card Type: my_type
 """
