@@ -1,11 +1,13 @@
-# magic-the-gpthering
-Playground for generating cards in the style of "Magic The Gathering" using generative AI
-
+# Magic the GPThering
+Playground for generating cards in the style of "Magic The Gathering" using generative AI models.
 
 ## Overview
 
+Magic the GPThering is a small Python application that generates "realistic" magic cards in the style of ["Magic The Gathering"](https://magic.wizards.com/en), the popular card game we (all?) played when we were young.
 
-The app is built as a Streamlit app, wrapping with Python the generative capabilities of OpenAI models, GPT and DALLE. The GPT prompts are built from some or less random cards (leveraging the database [here](https://scryfall.com/?utm_source=mci)).
+The app is built as a Streamlit app, wrapping with Python the generative capabilities of OpenAI models, [GPT](https://arxiv.org/abs/2005.14165) and [DALLE](https://arxiv.org/abs/2102.12092). The GPT prompts are built from more or less random cards (leveraging the great database [here](https://scryfall.com/?utm_source=mci)).
+
+If you care about the cards, just go to the online app. If you want to improve it (God knows how much that's needed!), feel free to play around with the code: it's all pretty hacky, but the code should be simple and self-contained enough that making it better should be straightforward. This was a fun week-end project and should be treated with the appropriate sense of humour.
 
 ## Generate cards
 
