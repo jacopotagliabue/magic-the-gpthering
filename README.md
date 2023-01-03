@@ -13,7 +13,7 @@ Generated cards may be similar to this one:
 
 ![example card](example.png)
 
-Note that in this case the model actually picked *an existing card name* (you can double check online), and then "hallucinate" partially the rest. In general, as usual with these models, it is hard to make sure content is truly new.
+Note that in this case the model actually picked *an existing card name* (you can check [online](https://scryfall.com/card/2x2/66/venser-shaper-savant)), and then  partially "hallucinate" the rest. In general, as usual with these models, it is hard to make sure content is truly new.
 
 ## Generate cards
 
