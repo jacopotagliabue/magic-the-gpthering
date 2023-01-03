@@ -7,19 +7,46 @@ from prompts import GPT_PROMPT
 from random import choice
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
+from io import BytesIO
 
 
 ### Utility functions / API wrappers
 
 # open AI vars
 GPT_3_COMPLETION_URL = 'https://api.openai.com/v1/completions'
-DALLE_URL = 'https://api.openai.com/v1/images/generations'
+DALLE2_URL = 'https://api.openai.com/v1/images/generations'
 
 # initialize the card font
 CARD_TITLE_FONT = ImageFont.truetype('24324_MAGIC.ttf', 24)
 CARD_TEXT_FONT = ImageFont.truetype('Garamond Regular.ttf', 21)
 CARD_FLAVOR_FONT = ImageFont.truetype('GARAIT.TTF', 21)
 CARD_LEFT_MARGIN = 55
+IMG_WIDTH = 414
+IMG_HEIGHT = 305
+DALLE_SIZE = 512
+
+# wrap dalle2 API
+def get_dalle_image(
+    api_key: str
+):
+    start = time.time()
+    data =  {
+          "prompt": "A cute baby sea otter",
+          "n": 1,
+          "size": "512x512"
+        }
+    payload = json.dumps(data)
+    headers = { 
+        'content-type': 'application/json', 
+        "Authorization": "Bearer {}".format(api_key)
+        }
+    r = requests.post(DALLE2_URL, data=payload, headers=headers)
+    # print timing for debug
+    print("DALLE3 API time: {}".format(time.time() - start))
+    # if the response is sound, get the first choice and return it
+    dalle_response = json.loads(r.text)["data"][0]['url'] if r.status_code == 200 else json.loads(r.text)['error']
+
+    return r.status_code, dalle_response
 
 # wrap gpt3 API 
 def get_gpt3_completion(
@@ -77,7 +104,15 @@ def draw_card(
         card_image: str
     ):
     # setup the card
-    card_template = Image.open("card.jpeg")
+    card_template = Image.open("card.jpeg") 
+    response = requests.get(card_image)
+    card_image = Image.open(BytesIO(response.content))
+    # resize and crop
+    newsize = (IMG_WIDTH, IMG_WIDTH)
+    v_margin = (DALLE_SIZE - IMG_HEIGHT) / 2
+    small_card_image = card_image.resize(newsize)
+    cropped_card_image = small_card_image.crop((0, v_margin, IMG_WIDTH, DALLE_SIZE - v_margin))
+    card_template.paste(cropped_card_image, (43, 82))
     image_editable = ImageDraw.Draw(card_template)
     # title
     image_editable.text((CARD_LEFT_MARGIN, 45), card_title, (0,0,0), font=CARD_TITLE_FONT)
@@ -160,13 +195,20 @@ def generate_new_card(
         return "!!! Error when calling GPT (code {}): {}".format(status_code, text), None
     # parse gpt3 response into component
     _title, _type, _text, _flavor = parse_gpt3_card_description(text)
-    # else, design the card
+    # generate image
+    image_text = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-l6VUPYjZmnBAEEzxRqH3HEz6/user-j5mZ9QYUln92c3nhg3nHfgMV/img-d3cM6zj7WZ8W2AnCo9Ybjd0H.png?st=2023-01-03T17%3A11%3A20Z&se=2023-01-03T19%3A11%3A20Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-01-03T16%3A12%3A40Z&ske=2023-01-04T16%3A12%3A40Z&sks=b&skv=2021-08-06&sig=6VXnC3j8iwIXBvoYF5IESrM73KEEZo%2BB6LvdMZgXA/Y%3D' 
+    #status_code, text = get_dalle_image(
+    #    api_key=api_key
+    #    )
+    if status_code != 200:
+        return "!!! Error when calling DALLE (code {}): {}".format(status_code, image_text), None
+    # if all good, design the card
     card_template = draw_card(
         card_title=_title,
         card_type=_type,
         card_text=_text,
         card_flavor=_flavor,
-        card_image=''
+        card_image=image_text
     )
     # debug
     print("Card generated at {}".format(datetime.utcnow()))
@@ -186,8 +228,8 @@ API_KEY = st.text_input("Enter your OpenAI API KEY", type="password")
 ### APP SECTION: Card generation
 st.subheader("Card generation")    
 
-color_options = ('White', 'Red', 'Blue', 'Black')
-type_options = ('Creature', 'Sorcery', 'Enchantment', 'Instant')
+color_options = ('Blue', 'White', 'Red', 'Black')
+type_options = ('Creature', 'Enchantment', 'Artifact')
 color_option = st.selectbox('Pick a card color', color_options + ('Random',))
 type_option = st.selectbox('Pick a card type', type_options + ('Random',))
 

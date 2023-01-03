@@ -37,7 +37,8 @@ Of course, everything feels a bit hacky, as it should be for a fun week-end proj
 * improving the card generation process with some more details on the card (for example, font / better rendering of small elements, check for text size etc.), as well as supporting multiple card templates (green, white, lands etc.);
 * better prompting for GPT3;
 * using other generative AI systems for the image (Midjourney has a fantasy touch, but no API still!);
-* generate multiple images for the same card and let the user pick one.
+* generate multiple images for the same card and let the user pick one;
+* use image models better to produce a card drawing with the proper aspect ratio, instead of just cropping the image like now.
 
 Feel free to star this repo, fork the code and build your own generator!
 
