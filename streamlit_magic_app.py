@@ -177,6 +177,7 @@ def generate_new_card(
 ### APP SECTION: Intro and credentials
 st.header("Magic the GPThering - generating cards with AI")
 st.write("This is a small app leveraging GPT-3 and DALLE-2 to generate magic cards in the style of the popular game. All code is open sourced: please consult the [GitHub project](https://github.com/jacopotagliabue/magic-the-gpthering) for more info.")
+st.write("This was a fun week-end project and should be treated with the appropriate sense of humour: still lots of things to improve (check the repo if you want to contribute)!")
 
 st.subheader("Credentials")
 st.write("We need your OpenAI API to generate cards (attention: this will consume credits / add to your bill): sign up for one [here](https://openai.com/api/) if you don't have it!")
