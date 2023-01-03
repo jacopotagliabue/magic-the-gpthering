@@ -27,11 +27,12 @@ DALLE_SIZE = 512
 
 # wrap dalle2 API
 def get_dalle_image(
-    api_key: str
+    api_key: str,
+    prompt: str
 ):
     start = time.time()
     data =  {
-          "prompt": "A cute baby sea otter",
+          "prompt": prompt,
           "n": 1,
           "size": "512x512"
         }
@@ -93,6 +94,32 @@ def write_paragraph_on_image(
     y_text += (height * 0.6)
 
     return y_text
+
+
+def generate_dalle2_prompt(
+    card_name: str,
+    card_type: str,
+    card_color: str
+):  
+    dalle_2_prompt_template = """
+    A digital illustration of a {name} in the forefront in the middle. Background with {color} tones and {element} color schemes. 8k, detailed mythical {_type}, fantasy vivid colors in the style of Magic cards. Gorgeous digital painting, amazing art, artstation 3, realistic.
+    """
+    color_2_element = {
+        'Blue': 'ocean and water', 
+        'White': 'prairie and marble', 
+        'Red': 'fire and cave', 
+        'Black': 'swamp and dark',
+        'Green': 'forest and wood'
+    }    
+
+    values = {
+        'name': card_name,
+        'color': card_color.lower(),
+        'element': color_2_element[card_color],
+        '_type': 'creature' if 'Creature' in card_type else card_type.lower()
+    }
+
+    return dalle_2_prompt_template.format(**values).strip()
 
 
 # generate the new card pic from the template
@@ -196,10 +223,12 @@ def generate_new_card(
     # parse gpt3 response into component
     _title, _type, _text, _flavor = parse_gpt3_card_description(text)
     # generate image
-    image_text = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-l6VUPYjZmnBAEEzxRqH3HEz6/user-j5mZ9QYUln92c3nhg3nHfgMV/img-d3cM6zj7WZ8W2AnCo9Ybjd0H.png?st=2023-01-03T17%3A11%3A20Z&se=2023-01-03T19%3A11%3A20Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-01-03T16%3A12%3A40Z&ske=2023-01-04T16%3A12%3A40Z&sks=b&skv=2021-08-06&sig=6VXnC3j8iwIXBvoYF5IESrM73KEEZo%2BB6LvdMZgXA/Y%3D' 
-    #status_code, text = get_dalle_image(
-    #    api_key=api_key
-    #    )
+    #image_text = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-l6VUPYjZmnBAEEzxRqH3HEz6/user-j5mZ9QYUln92c3nhg3nHfgMV/img-d3cM6zj7WZ8W2AnCo9Ybjd0H.png?st=2023-01-03T17%3A11%3A20Z&se=2023-01-03T19%3A11%3A20Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-01-03T16%3A12%3A40Z&ske=2023-01-04T16%3A12%3A40Z&sks=b&skv=2021-08-06&sig=6VXnC3j8iwIXBvoYF5IESrM73KEEZo%2BB6LvdMZgXA/Y%3D' 
+    dalle2_prompt = generate_dalle2_prompt(_title, _type, card_color)
+    status_code, image_text = get_dalle_image(
+        api_key=api_key,
+        prompt=dalle2_prompt
+        )
     if status_code != 200:
         return "!!! Error when calling DALLE (code {}): {}".format(status_code, image_text), None
     # if all good, design the card
@@ -228,7 +257,7 @@ API_KEY = st.text_input("Enter your OpenAI API KEY", type="password")
 ### APP SECTION: Card generation
 st.subheader("Card generation")    
 
-color_options = ('Blue', 'White', 'Red', 'Black')
+color_options = ('Blue', 'White', 'Red', 'Black', 'Green')
 type_options = ('Creature', 'Enchantment', 'Artifact')
 color_option = st.selectbox('Pick a card color', color_options + ('Random',))
 type_option = st.selectbox('Pick a card type', type_options + ('Random',))
@@ -240,6 +269,8 @@ if color_option == 'Random':
 if type_option == 'Random':
     type_option = choice(type_options)
 
+
+st.write('NOTE: card generation involves several API calls, give it 10 seconds or so!')
 if st.button('Generate card'):
     card_text, card_image = generate_new_card(
         api_key=API_KEY,
