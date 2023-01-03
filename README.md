@@ -7,7 +7,7 @@ Magic the GPThering is a small Python application that generates "realistic" mag
 
 The app is built as a Streamlit app, wrapping with Python the generative capabilities of OpenAI models, [GPT](https://arxiv.org/abs/2005.14165) and [DALLE](https://arxiv.org/abs/2102.12092). The GPT prompts are built from more or less random cards (leveraging the great database [here](https://scryfall.com/?utm_source=mci)).
 
-If you care about the cards, just go to the online app. If you want to improve it (God knows how much that's needed!), feel free to play around with the code: it's all pretty hacky, but the code should be simple and self-contained enough that making it better should be straightforward. This was a fun week-end project and should be treated with the appropriate sense of humour.
+If you care about the cards, just go to the [online app](https://jacopotagliabue-magic-the-gpthering-streamlit-magic-app-b5c8m0.streamlit.app/). If you want to improve it (God knows how much that's needed!), feel free to play around with the code: it's all pretty hacky, but the code should be simple and self-contained enough that making it better should be straightforward. This was a fun week-end project and should be treated with the appropriate sense of humour.
 
 ## Generate cards
 
@@ -15,7 +15,7 @@ IMPORTANT: since we leverage OpenAI APIs, you need to have your own API key to g
 
 ### Cloud app
 
-Browse to our Streamlit app here - you should be able to generate cards directly on your browser (if the app is "sleeping" on the Streamlist servers, follow the browser instructions to spin it up again).
+Browse to our Streamlit app [here](https://jacopotagliabue-magic-the-gpthering-streamlit-magic-app-b5c8m0.streamlit.app/) - you should be able to generate cards directly on your browser (if the app is "sleeping" on the Streamlist servers, follow the browser instructions to spin it up again).
 
 ### Running the code locally
 
