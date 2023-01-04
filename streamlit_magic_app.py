@@ -136,9 +136,12 @@ def draw_card(
     card_image = Image.open(BytesIO(response.content))
     # resize and crop
     newsize = (IMG_WIDTH, IMG_WIDTH)
-    v_margin = (DALLE_SIZE - IMG_HEIGHT) / 2
+    # original cropping was middle (vertically), but many pictures are "head first"
+    # so we changed it to crop the bottom out
+    # v_margin = (DALLE_SIZE - IMG_HEIGHT) / 2
+    v_margin = 0
     small_card_image = card_image.resize(newsize)
-    cropped_card_image = small_card_image.crop((0, v_margin, IMG_WIDTH, DALLE_SIZE - v_margin))
+    cropped_card_image = small_card_image.crop((0, v_margin, IMG_WIDTH, IMG_HEIGHT))
     card_template.paste(cropped_card_image, (43, 82))
     image_editable = ImageDraw.Draw(card_template)
     # title
@@ -190,7 +193,6 @@ def parse_gpt3_card_description(
     first_card = gpt_output.strip().split("===")[0].strip()
     # split on new line
     card_features = first_card.split('\n')
-    print(card_features)
     _title = get_value('Card Name', card_features)
     _type = get_value('Types', card_features)
     _text = get_value('Card Text', card_features)
@@ -206,10 +208,15 @@ def parse_gpt3_card_description(
 def generate_new_card(
     api_key: str,
     card_color: str, 
-    card_type: str
+    card_type: str,
+    card_name_prompt: str
 ):
     # combine static prompt with color and type
     prompt = GPT_PROMPT.replace('my_color', card_color).replace('my_type', card_type)
+    if len(card_name_prompt.strip()) > 0:
+        # add to the prompt the card name
+        print("Adding custom name to prompt!")
+        prompt = prompt + '\nCard Name: {}'.format(card_name_prompt.strip())
     # get gpt 3 completion
     status_code, text = get_gpt3_completion(
         api_key=api_key,
@@ -222,6 +229,9 @@ def generate_new_card(
         return "!!! Error when calling GPT (code {}): {}".format(status_code, text), None
     # parse gpt3 response into component
     _title, _type, _text, _flavor = parse_gpt3_card_description(text)
+    if len(card_name_prompt.strip()) > 0:
+        # overwrite card title
+        _title = card_name_prompt.strip()
     # generate image
     #image_text = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-l6VUPYjZmnBAEEzxRqH3HEz6/user-j5mZ9QYUln92c3nhg3nHfgMV/img-d3cM6zj7WZ8W2AnCo9Ybjd0H.png?st=2023-01-03T17%3A11%3A20Z&se=2023-01-03T19%3A11%3A20Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-01-03T16%3A12%3A40Z&ske=2023-01-04T16%3A12%3A40Z&sks=b&skv=2021-08-06&sig=6VXnC3j8iwIXBvoYF5IESrM73KEEZo%2BB6LvdMZgXA/Y%3D' 
     dalle2_prompt = generate_dalle2_prompt(_title, _type, card_color)
@@ -269,13 +279,16 @@ if color_option == 'Random':
 if type_option == 'Random':
     type_option = choice(type_options)
 
+# optional write a card name if you want to prompt the system
+card_name_prompt = st.text_input('(Optional) Card name if you want to specify it')
 
 st.write('NOTE: card generation involves several API calls, give it 10 seconds or so!')
 if st.button('Generate card'):
     card_text, card_image = generate_new_card(
         api_key=API_KEY,
         card_color=color_option,
-        card_type=type_option
+        card_type=type_option,
+        card_name_prompt=card_name_prompt
     )
     # display image
     if not card_image:

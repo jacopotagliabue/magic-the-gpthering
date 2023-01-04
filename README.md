@@ -19,6 +19,12 @@ Note that in this case the model actually picked *an existing card name* (you ca
 
 IMPORTANT: since we leverage OpenAI APIs, you need to have your own API key to generate cards. You can quickly sign up [here](https://openai.com/api/) to get one, if you don't have one already. The streamlit app doesn't store your credentials anywhere.
 
+If you don't specify a name prompt, the model will generate that based on color and type. If you do specify a card name, the model will instead use that in the prompt. NOTE: this allows you to prompt generative models for pretty unexpected creatures, like for example this "Sea Lawyer":
+
+![custom name](custom.png)
+
+What weird magical entity can you come up with?
+
 ### Cloud app
 
 Browse to our Streamlit app [here](https://jacopotagliabue-magic-the-gpthering-streamlit-magic-app-b5c8m0.streamlit.app/) - you should be able to generate cards directly on your browser (if the app is "sleeping" on the Streamlit servers, follow the browser instructions to spin it up again).
