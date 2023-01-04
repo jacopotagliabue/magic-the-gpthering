@@ -19,7 +19,7 @@ Note that in this case the model actually picked *an existing card name* (you ca
 
 IMPORTANT: since we leverage OpenAI APIs, you need to have your own API key to generate cards. You can quickly sign up [here](https://openai.com/api/) to get one, if you don't have one already. The streamlit app doesn't store your credentials anywhere.
 
-If you don't specify a name prompt, the model will generate that based on color and type. If you do specify a card name, the model will instead use that in the prompt. NOTE: this allows you to prompt generative models for pretty unexpected creatures, like for example this "Sea Lawyer":
+If you don't specify a name prompt, the model will generate that based on color and type. If you do specify a card name, the model will instead use that in the prompt. NOTE: this allows you to prompt generative models for pretty unexpected creatures, like for example this "Elvish Lawyer":
 
 ![custom name](custom.png)
 
